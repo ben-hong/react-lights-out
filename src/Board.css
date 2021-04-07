@@ -1,3 +1,17 @@
 .Board {
   margin: 0 auto;
 }
+.Board-container {
+  padding-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Board-table {
+ border: solid 2px black; 
+ border-collapse: collapse;
+}
+
+td {
+  border: 1px solid black;
+}

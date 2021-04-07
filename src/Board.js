@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cell from "./Cell";
 import "./Board.css";
+import randomLights from "./randomLightsOn"
 
 /** Game board of Lights out.
  *
@@ -27,13 +28,21 @@ import "./Board.css";
  *
  **/
 
-function Board({ nrows, ncols, chanceLightStartsOn }) {
+function Board({ nrows=6, ncols=6, chanceLightStartsOn=randomLights }) {
   const [board, setBoard] = useState(createBoard());
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard() {
     let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
+    for (let y = 0; y < nrows; y++) {
+      let innerArr = [];
+      for (let x = 0; x < ncols; x++) {
+        innerArr.push(chanceLightStartsOn());
+      }
+      // innerArr => [true, false, true, false, false, true]
+      initialBoard.push(innerArr);
+    }
     return initialBoard;
   }
 
@@ -68,6 +77,16 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   // make table board
 
   // TODO
+  /*  map the state board
+    * board.map(row => row.map(cell => <Cell flipCellsAroundMe= isLit=cell/>))    
+   */
+  return (
+    <div className="Board-container">  
+      <table className="Board-table">
+        {board.map(row => <tr>{row.map(cell => <Cell isLit={cell}/>)}</tr>)}
+      </table>
+    </div>
+  )
 }
 
 export default Board;
